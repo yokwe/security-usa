@@ -50,6 +50,7 @@ public class Usage extends JSONBase {
 			dailyUsage        = null;
 			monthlyUsage      = 0;
 			monthlyPayAsYouGo = 0;
+			tokenUsage        = null;
 			keyUsage          = null;
 		}
 		
@@ -58,11 +59,20 @@ public class Usage extends JSONBase {
 		}
 	}
 	
-	public Usage.Messages messages;
-//	public Rules    rules;
+	public static class Rule extends JSONBase {
+		public Rule() {
+		}
+		public Rule(JsonObject jsonObject) {
+			super(jsonObject);
+		}
+	}
+	
+	public Messages messages;
+	public Rule[]   rules;
 	
 	public Usage() {
 		messages = null;
+		rules    = null;
 	}
 	public Usage(JsonObject jsonObject) {
 		super(jsonObject);
