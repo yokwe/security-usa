@@ -20,21 +20,17 @@ public class T001 {
 		logger.info("START");
 		
 		{
-			Context context = new Context(Type.PRODUCTION, Version.V1, "tmp/data");
-			Context.save(Context.NAME_DATA, context);
-		}
-		{
-			Context context = new Context(Type.SANDBOX, Version.V1, "tmp/test");
-			Context.save(Context.NAME_TEST, context);
+			Context context = new Context("data", Version.V1, Type.PRODUCTION);
+			Context.save(context);
 		}
 
 		{
-			logger.info("{} {}", Context.NAME_DATA, Context.load(Context.NAME_DATA).toString());
-			logger.info("{} {}", Context.NAME_TEST, Context.load(Context.NAME_TEST).toString());
+			logger.info("{} {}", Context.NAME_DATA, Context.getInstance(Context.NAME_DATA));
+			logger.info("{} {}", Context.NAME_TEST, Context.getInstance(Context.NAME_TEST));
 		}
 
-//		Context context = Context.load(Context.NAME_DATA);
-		Context context = Context.load(Context.NAME_TEST);
+//		Context context = Context.getInstance(Context.NAME_DATA);
+		Context context = Context.getInstance(Context.NAME_TEST);
 		logger.info("context  {}", context);
 		
 		logger.info("status    {}", Status.getInstance(context));
@@ -43,12 +39,6 @@ public class T001 {
 		
 		{
 			List<Symbols> list = Symbols.getInstance(context);
-			Symbols.save(context, list);
-			logger.info("symbols   {}", list.size());
-			Symbols.save(context, list);
-		}
-		{
-			List<Symbols> list = Symbols.getList(context);
 			logger.info("symbols   {}", list.size());
 		}
 	
