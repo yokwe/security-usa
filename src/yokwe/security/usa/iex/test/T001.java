@@ -13,7 +13,7 @@ public class T001 {
 	public static void main(String[] args) {
 		logger.info("START");
 		
-		Context context = Context.load(Context.NAME_RUN);
+		Context context = Context.load(Context.NAME_DATA);
 		logger.info("context {}", context);
 		
 		logger.info("status   {}", Status.getInstance(context));
