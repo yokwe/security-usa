@@ -18,11 +18,13 @@ public class Status extends JSONBase {
 	public String 		 version;
 	@UseTimeZone(TimeZone.LOCAL)
 	public LocalDateTime time;
+	public long          currentMonthAPICalls;
 	
 	public Status() {
-		status  = null;
-		version = null;
-		time    = null;
+		status               = null;
+		version              = null;
+		time                 = null;
+		currentMonthAPICalls = 0;
 	}
 	
 	public Status(JsonObject jsonObject) {
