@@ -19,7 +19,7 @@ public class Context extends JSONBase {
 	
 	public static final String PATH_DATA_DIR = "tmp/iex/context";
 	
-	public static final String NAME_RUN  = "run";
+	public static final String NAME_DATA = "data";
 	public static final String NAME_TEST = "test";
 
 	private static String getPath(String name) {
@@ -108,10 +108,9 @@ public class Context extends JSONBase {
 		}
 		
 		if (tokenUsed != dataWeight) {
-			logger.error("Unexpected token usage");
-			logger.error("  expected {}", dataWeight);
-			logger.error("  actual   {}", tokenUsed);
-			throw new UnexpectedException("Unexpected token usage");
+			logger.warn("Unexpected token usage");
+			logger.warn("  expected {}", dataWeight);
+			logger.warn("  actual   {}", tokenUsed);
 		}
 	}
 	public int getTokenUsed() {
@@ -168,7 +167,7 @@ public class Context extends JSONBase {
 //		}
 		
 		{
-			logger.info("{}  {}", NAME_RUN, load(NAME_RUN).toString());
+			logger.info("{} {}", NAME_DATA, load(NAME_DATA).toString());
 			logger.info("{} {}", NAME_TEST, load(NAME_TEST).toString());
 		}
 		
