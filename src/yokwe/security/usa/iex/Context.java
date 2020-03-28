@@ -2,6 +2,7 @@ package yokwe.security.usa.iex;
 
 import java.io.File;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.json.JsonObject;
 
@@ -20,12 +21,36 @@ public class Context extends JSONBase {
 	
 	public static final String NAME_DATA = "data";
 	public static final String NAME_TEST = "test";
-
-	private static String getPath(String name) {
-		return String.format("%s/%s", PATH_DATA_DIR, name);
+	
+	private static Map<String, Context> map = null;
+	public static Context getInstance(String name) {
+		if (map == null) {
+			map = new TreeMap<>();
+			for(File file: FileUtil.listFile(PATH_DATA_DIR)) {
+				Context context = load(file);
+				String contextName = context.name;
+				if (map.containsKey(contextName)) {
+					logger.error("Duplicate name");
+					logger.error("  name {}", contextName);
+					logger.error("  old  {}", map.get(contextName));
+					logger.error("  new  {}", context);
+					throw new UnexpectedException("Duplicate name");
+				} else {
+					map.put(context.name, context);
+					logger.info("context {} {} {}", context.name, context.version, context.type);
+				}
+			}
+		}
+		if (map.containsKey(name)) {
+			return map.get(name);
+		} else {
+			logger.error("Unexpected name");
+			logger.error("  name {}", name);
+			throw new UnexpectedException("Unexpected name");
+		}
 	}
-	public static Context load(String name) {
-		File file = new File(getPath(name));
+
+	public static Context load(File file) {
 		if (!file.canRead()) {
 			logger.error("Cannot read file");
 			logger.error("  file  {}", file.getPath());
@@ -34,15 +59,16 @@ public class Context extends JSONBase {
 		String jsonString = FileUtil.read().file(file);
 		return JSONBase.getInstance(Context.class, jsonString);
 	}
-	public static void save(String name, Context context) {
-		File file = new File(getPath(name));
+	public static void save(Context context) {
+		String path = String.format("%s/%s", PATH_DATA_DIR, context.name);
+		File file = new File(path);
 		String jsonString = context.toJSONString();
 		FileUtil.write().file(file, jsonString);
 	}
 	
-	public Type    type;
+	public String  name;
 	public Version version;
-	public String  basePath;
+	public Type    type;
 	@IgnoreField
 	public Token   token;
 	@IgnoreField
@@ -51,17 +77,17 @@ public class Context extends JSONBase {
 	public int     tokenUsedTotal;
 	
 	public Context() {
-		this.type           = null;
+		this.name           = null;
 		this.version        = null;
-		this.basePath       = null;
+		this.type           = null;
 		this.token          = null;
 		this.tokenUsed      = 0;
 		this.tokenUsedTotal = 0;
 	}
-	public Context(Type type, Version version, String basePath) {
-		this.type           = type;
+	public Context(String name, Version version, Type type) {
+		this.name           = name;
 		this.version        = version;
-		this.basePath       = basePath;
+		this.type           = type;
 		this.token          = Token.get(type);
 		this.tokenUsed      = 0;
 		this.tokenUsedTotal = 0;
@@ -74,14 +100,7 @@ public class Context extends JSONBase {
 	
 	@Override
 	public String toString() {
-		return String.format("{%s %s %s %s %d %d}", type.toString(), version.toString(), basePath, token, tokenUsed, tokenUsedTotal);
-	}
-	
-	public String getBasePath() {
-		return basePath;
-	}
-	public String getFilePath(String path) {
-		return String.format("%s/%s", basePath, path);
+		return String.format("{%s %s %s %s %d %d}", name, version.toString(), type.toString(), token, tokenUsed, tokenUsedTotal);
 	}
 	
 	//
