@@ -1,8 +1,6 @@
 package yokwe.security.usa.iex;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.json.JsonObject;
@@ -12,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import yokwe.UnexpectedException;
 import yokwe.util.FileUtil;
 import yokwe.util.HttpUtil;
+import yokwe.util.StringUtil;
 import yokwe.util.json.JSONBase;
 
 public class Context extends JSONBase {
@@ -81,6 +80,9 @@ public class Context extends JSONBase {
 	public String getBasePath() {
 		return basePath;
 	}
+	public String getFilePath(String path) {
+		return String.format("%s/%s", basePath, path);
+	}
 	
 	//
 	// tokenUsed
@@ -139,39 +141,8 @@ public class Context extends JSONBase {
 		StringBuilder ret = new StringBuilder(getURL(endPoint, format));
 		
 		for(Map.Entry<String, String> entry: paramMap.entrySet()) {
-			ret.append(String.format("&%s=%s", urlEncode(entry.getKey()), urlEncode(entry.getValue())));
+			ret.append(String.format("&%s=%s", StringUtil.urlEncode(entry.getKey()), StringUtil.urlEncode(entry.getValue())));
 		}
 		return ret.toString();
 	}
-	
-	private static String urlEncode(String symbol) {
-		try {
-			return URLEncoder.encode(symbol, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			String exceptionName = e.getClass().getSimpleName();
-			logger.error("{} {}", exceptionName, e);
-			throw new UnexpectedException(exceptionName, e);
-		}
-	}
-
-	public static void main(String[] args) {
-		logger.info("START");
-		
-//		{
-//			Context context = new Context(Type.PRODUCTION, Version.V1, "tmp/run");
-//			save(NAME_RUN, context);
-//		}
-//		{
-//			Context context = new Context(Type.SANDBOX, Version.V1, "tmp/test");
-//			save(NAME_TEST, context);
-//		}
-		
-		{
-			logger.info("{} {}", NAME_DATA, load(NAME_DATA).toString());
-			logger.info("{} {}", NAME_TEST, load(NAME_TEST).toString());
-		}
-		
-		logger.info("STOP");
-	}
-
 }
