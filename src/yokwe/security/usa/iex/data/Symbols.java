@@ -72,7 +72,7 @@ public class Symbols extends JSONBase implements Comparable<Symbols> {
 	//
 	// save and getList()
 	//
-	public static final String NAME_FILE = "symbols.csv";
+	public static final String FILE_NAME = "symbols.csv";
 	
 	public static void save(Context context, Collection<Symbols> collection) {
 		save(context, new ArrayList<>(collection));
@@ -80,12 +80,12 @@ public class Symbols extends JSONBase implements Comparable<Symbols> {
 	public static void save(Context context, List<Symbols> list) {
 		// Sort before save
 		Collections.sort(list);
-		String path = context.getFilePath(NAME_FILE);
+		String path = context.getFilePath(FILE_NAME);
 		CSVUtil.write(Symbols.class).file(path, list);
 	}
 	
 	public static List<Symbols> getList(Context context) {
-		String path = context.getFilePath(NAME_FILE);
+		String path = context.getFilePath(FILE_NAME);
 		List<Symbols> ret = CSVUtil.read(Symbols.class).file(path);
 		if (ret == null) {
 			ret = new ArrayList<>();
