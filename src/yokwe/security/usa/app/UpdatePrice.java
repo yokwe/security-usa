@@ -87,8 +87,6 @@ public class UpdatePrice {
 			previousList.addAll(list);
 		}
 
-		logger.info("previous {} {}", previousList.size(), PATH_FILE_PREVIOUS);
-		CSVUtil.write(Previous.class).file(PATH_FILE_PREVIOUS, previousList);
 		return previousList;
 	}
 
@@ -99,8 +97,11 @@ public class UpdatePrice {
 		List<String> symbolList = stockList.stream().map(o -> o.symbol).collect(Collectors.toList());
 		
 		delistUnknownFile(stockCodeList);
-		List<Previous> previousList = getPreviousList(context, symbolList);
 		
+		List<Previous> previousList = getPreviousList(context, symbolList);
+		logger.info("previous {} {}", previousList.size(), PATH_FILE_PREVIOUS);
+		CSVUtil.write(Previous.class).file(PATH_FILE_PREVIOUS, previousList);
+
 		List<Price> priceList = previousList.stream().map(o -> new Price(o.date, Stock.normalizeSymbol(o.symbol), o.open, o.high, o.low, o.close, o.volume)).collect(Collectors.toList());
 		int count = 0;
 		int countTotal = priceList.size();
@@ -108,7 +109,7 @@ public class UpdatePrice {
 			String date      = price.date;
 			String stockCode = price.stockCode;
 
-			if ((count % 100) == 0) {
+			if ((count % 1000) == 0) {
 				logger.info("{}", String.format("%4d / %4d  %-7s", count, countTotal, stockCode));
 			}
 			count++;
