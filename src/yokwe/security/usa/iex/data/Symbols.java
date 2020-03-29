@@ -11,7 +11,7 @@ import yokwe.util.CSVUtil;
 import yokwe.util.HttpUtil;
 import yokwe.util.json.JSONBase;
 
-public class Symbols extends JSONBase implements Comparable<Symbols> {	
+public class Symbols extends JSONBase implements Comparable<Symbols> {
 	public static final int    DATA_WEIGHT = 100; // 100 per call
 
 	// symbol,exchange,name,date,type,iexId,region,currency,isEnabled
@@ -49,7 +49,7 @@ public class Symbols extends JSONBase implements Comparable<Symbols> {
 	public int compareTo(Symbols that) {
 		return this.symbol.compareTo(that.symbol);
 	}
-	
+
 	public static final String METHOD = "ref-data/symbols";
 	public static List<Symbols> getInstance(Context context) {
 		String url = context.getURL(METHOD, Format.CSV);
