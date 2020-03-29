@@ -21,7 +21,7 @@
                 </fileset>
 	</path>
 	
-	<property name="jar.security-usa" location="${dir.build.jar}/security-japan.jar" />
+	<property name="jar.security-usa" location="${dir.build.jar}/security-usa.jar" />
 
 	<target name="clean">
 		<delete includeemptydirs="true" quiet="true">
@@ -39,14 +39,14 @@
 		<javac srcdir="${dir.src}" destdir="${dir.build.bin}" classpathref="ext.jar" includeAntRuntime="false" 
 			debug="true" debuglevel="lines,vars,source" />
 		<!-- make jar -->
-		<jar destfile="${jar.security-japan}" basedir="${dir.build.bin}" />
+		<jar destfile="${jar.security-usa}" basedir="${dir.build.bin}" />
 	</target>
 	
 	
 	<!-- application -->
         <target name="update-stock">
                 <java classname="yokwe.security.usa.app.UpdateStock" fork="true">
-                        <classpath location="${jar.security-japan}" />
+                        <classpath location="${jar.security-usa}" />
                         <classpath refid="ext.jar" />
                         <sysproperty key="java.library.path" value="/usr/lib/libreoffice/program"/>
                         <sysproperty key="logback.configurationFile" value="${dir.src}/logback.xml"/>
@@ -55,7 +55,7 @@
 
         <target name="update-price">
                 <java classname="yokwe.security.usa.app.UpdatePrice" fork="true">
-                        <classpath location="${jar.security-japan}" />
+                        <classpath location="${jar.security-usa}" />
                         <classpath refid="ext.jar" />
                         <sysproperty key="java.library.path" value="/usr/lib/libreoffice/program"/>
                         <sysproperty key="logback.configurationFile" value="${dir.src}/logback.xml"/>
