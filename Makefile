@@ -44,3 +44,15 @@ ifneq (,$(wildcard tmp/data/price))
 endif
 	ant update-price
 
+
+#
+# sats-us.csv
+#
+update-stats-us:
+ifneq (,$(wildcard tmp/data/stats-us.csv))
+	rm -f tmp/data/stats-us-OLD.csv
+	cp -p tmp/data/stats-us.csv     tmp/data/stats-us-OLD.csv
+endif
+	ant update-stats-us
+	cp tmp/data/stats-us.csv ~/Dropbox/Trade/stats-us.csv
+

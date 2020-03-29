@@ -125,32 +125,6 @@ public class Price implements Comparable<Price> {
 	public int compareTo(Price that) {
 		int ret = this.date.compareTo(that.date);
 		if (ret == 0) ret = this.stockCode.compareTo(that.stockCode);
-		
-		if (ret == 0) {
-			int thisValue = (int)Math.round(this.open * 10.0);
-			int thatValue = (int)Math.round(that.open * 10.0);
-			ret = thisValue - thatValue;
-		}
-		if (ret == 0) {
-			int thisValue = (int)Math.round(this.low * 10.0);
-			int thatValue = (int)Math.round(that.low * 10.0);
-			ret = thisValue - thatValue;
-		}
-		if (ret == 0) {
-			int thisValue = (int)Math.round(this.high * 10.0);
-			int thatValue = (int)Math.round(that.high * 10.0);
-			ret = thisValue - thatValue;
-		}
-		if (ret == 0) {
-			int thisValue = (int)Math.round(this.close * 10.0);
-			int thatValue = (int)Math.round(that.close * 10.0);
-			ret = thisValue - thatValue;
-		}
-		if (ret == 0) {
-			long longRet = this.volume - that.volume;
-			if (longRet == 0) ret = 0;
-			else ret = (longRet < 0) ? -1 : 1;
-		}
 		return ret;
 	}
 }

@@ -62,4 +62,13 @@
                  </java>
         </target>
 
+        <target name="update-stats-us">
+                <java classname="yokwe.security.usa.app.UpdateStatsUS" fork="true">
+                        <classpath location="${jar.security-usa}" />
+                        <classpath refid="ext.jar" />
+                        <sysproperty key="java.library.path" value="/usr/lib/libreoffice/program"/>
+                        <sysproperty key="logback.configurationFile" value="${dir.src}/logback.xml"/>
+                 </java>
+        </target>
+
 </project>
