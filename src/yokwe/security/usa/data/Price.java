@@ -24,13 +24,10 @@ public class Price implements Comparable<Price> {
 	public static final String PATH_DIR_DATA_DELIST = "tmp/data/price-delist";
 
 
-	public static void save(Collection<Price> collection) {
-		save(new ArrayList<>(collection));
+	public static void save(String stockCode, Collection<Price> collection) {
+		save(stockCode, new ArrayList<>(collection));
 	}
-	public static void save(List<Price> list) {
-		if (list.isEmpty()) return;
-		Price price = list.get(0);
-		String stockCode = price.stockCode;
+	public static void save(String stockCode, List<Price> list) {
 		String path = getPath(stockCode);
 		
 		// Sort before save
@@ -80,7 +77,7 @@ public class Price implements Comparable<Price> {
 	
 
 	public String date;      // YYYY-MM-DD
-	public String stockCode; // Can be four or five digits
+	public String stockCode; // normalized ticker symbol
 	public double open;
 	public double high;
 	public double low;
