@@ -22,7 +22,25 @@ copy-misc-lib-files:
 build-misc-lib:
 	pushd ../misc-lib/; ant build ; popd; make copy-misc-lib-files
 
-save-ods:
-	cp ~/Dropbox/Trade/dividend-etf.ods      ~/Dropbox/Trade/SAVE/dividend-etf_$$(date +%Y%m%d).ods
-	cp ~/Dropbox/Trade/TEMPLATE_STATS_JP.ods ~/Dropbox/Trade/SAVE/TEMPLATE_STATS_JP_$$(date +%Y%m%d).ods
+
+#
+# stock.csv
+#
+update-stock:
+ifneq (,$(wildcard tmp/data/stock.csv))
+	rm -f tmp/data/stock-OLD.csv
+	cp -p tmp/data/stock.csv     tmp/data/stock-OLD.csv
+endif
+	ant update-stock
+
+
+#
+# price
+#
+update-price:
+ifneq (,$(wildcard tmp/data/price))
+	rm -rf tmp/data/price-OLD.csv
+	cp -rp tmp/data/price        tmp/data/price-OLD
+endif
+	ant update-price
 
