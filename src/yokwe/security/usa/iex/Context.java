@@ -37,7 +37,7 @@ public class Context extends JSONBase {
 					throw new UnexpectedException("Duplicate name");
 				} else {
 					map.put(context.name, context);
-					logger.info("context {} {} {}", context.name, context.version, context.type);
+//					logger.info("context {} {} {}", context.name, context.version, context.type);
 				}
 			}
 		}
@@ -100,7 +100,8 @@ public class Context extends JSONBase {
 	
 	@Override
 	public String toString() {
-		return String.format("{%s %s %s %s %d %d}", name, version.toString(), type.toString(), token, tokenUsed, tokenUsedTotal);
+//		return String.format("{%s %s %s %s %d %d}", name, version.toString(), type.toString(), token, tokenUsed, tokenUsedTotal);
+		return String.format("{%s %s %s}", name, version.toString(), type.toString());
 	}
 	
 	//
