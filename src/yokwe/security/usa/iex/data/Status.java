@@ -14,6 +14,8 @@ public class Status extends JSONBase {
 	public static final int    DATA_WEIGHT = 0; // FREE
 	public static final String METHOD      = "status";
 	
+	public static final String STATUS_UP = "up";
+	
 	public String 		 status;
 	public String 		 version;
 	@UseTimeZone(TimeZone.LOCAL)
@@ -29,6 +31,10 @@ public class Status extends JSONBase {
 	
 	public Status(JsonObject jsonObject) {
 		super(jsonObject);
+	}
+	
+	public boolean isUp() {
+		return status.equals(STATUS_UP);
 	}
 	
 	public static Status getInstance(Context context) {
