@@ -45,7 +45,7 @@ public class StatsUS implements Comparable<StatsUS> {
 	// 5 <= pricec
 	public long   vol5;
 	// 20 <= pricec
-	public long   vol20;
+	public long   vol21;
 	
 
 	public StatsUS() {
@@ -71,7 +71,7 @@ public class StatsUS implements Comparable<StatsUS> {
 		
 		vol       = -1;
 		vol5      = -1;
-		vol20     = -1;
+		vol21     = -1;
 		
 	}
 

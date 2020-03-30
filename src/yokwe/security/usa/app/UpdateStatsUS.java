@@ -92,10 +92,10 @@ public class UpdateStatsUS {
 				statsUS.vol5 = -1;
 			}
 			if (20 <= pricec) {
-				MA vol20 = MA.sma(20, volumeArray);
-				statsUS.vol20 = (long)vol20.getValue();
+				MA vol21 = MA.sma(21, volumeArray);
+				statsUS.vol21 = (long)vol21.getValue();
 			} else {
-				statsUS.vol20 = -1;
+				statsUS.vol21 = -1;
 			}
 
 			statsList.add(statsUS);
