@@ -95,12 +95,18 @@ public class Previous extends JSONBase implements Comparable<Previous> {
 		return JSONBase.getInstance(Previous.class, result.result);
 	}
 	
+	public static final int    MAX_PARAM     = 100;
 	public static final String METHOD_MARKET = "/stock/market/previous";
 	public static List<Previous> getInstance(Context context, String... symbols) {
 		// Sanity check
 		if (symbols.length == 0) {
 			logger.error("symbols.length == 0");
 			throw new UnexpectedException("symbols.length == 0");
+		}
+		if (MAX_PARAM < symbols.length) {
+			logger.error("symbols.length exceeds limit");
+			logger.error("  symbols.length {}", symbols.length);
+			throw new UnexpectedException("symbols.length exceeds limit");
 		}
 		
 		Map<String, String> paramMap = new TreeMap<>();
