@@ -66,15 +66,13 @@ public class UpdatePrice {
 		}
 	}
 
-	public static final int    MAX_PARAM     = 100;
-
 	private static List<Previous> getPreviousList(Context context, List<String> symbolList) {
 		List<Previous> previousList = new ArrayList<>();
 		
 		int symbolListSize = symbolList.size();
-		for(int i = 0; i < symbolListSize; i += MAX_PARAM) {
+		for(int i = 0; i < symbolListSize; i += Previous.MAX_PARAM) {
 			int fromIndex = i;
-			int toIndex = Math.min(fromIndex + MAX_PARAM, symbolListSize);
+			int toIndex = Math.min(fromIndex + Previous.MAX_PARAM, symbolListSize);
 			List<String> getList = symbolList.subList(fromIndex, toIndex);
 			if (getList.isEmpty()) continue;
 			if (getList.size() == 1) {
