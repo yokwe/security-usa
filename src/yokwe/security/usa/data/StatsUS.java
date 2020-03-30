@@ -18,18 +18,61 @@ public class StatsUS implements Comparable<StatsUS> {
 	public String type;
 	public String name;
 	public String date;
+	
+	// current price and volume
 	public int    pricec;
 	public double price;
+	
+	// last price
+	public double last;
+	public double lastPCT;
+	
+	// stats - sd hv rsi
+	//  30 < pricec
+	public double sd;
+	public double hv;
+	// 15 <= pricec
+	public double rsi;
+	
+	// min max
+	public double min;
+	public double max;
+	public double minPCT;
+	public double maxPCT;
+	
+	// volume
 	public long   vol;
+	// 5 <= pricec
+	public long   vol5;
+	// 20 <= pricec
+	public long   vol20;
+	
 
 	public StatsUS() {
 		stockCode = null;
 		type      = null;
 		name      = null;
 		date      = null;
-		pricec    = 0;
-		price     = 0;
-		vol       = 0;
+		pricec    = -1;
+		price     = -1;
+		
+		last      = -1;
+		lastPCT   = -1;
+		
+		sd        = -1;
+		hv        = -1;
+		
+		rsi       = -1;
+		
+		min       = -1;
+		max       = -1;
+		minPCT    = -1;
+		maxPCT    = -1;
+		
+		vol       = -1;
+		vol5      = -1;
+		vol20     = -1;
+		
 	}
 
 	@Override
