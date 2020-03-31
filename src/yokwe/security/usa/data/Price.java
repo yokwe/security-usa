@@ -115,7 +115,14 @@ public class Price implements Comparable<Price> {
 		if (o == null) return false;
 		if (o instanceof Price) {
 			Price that = (Price)o;
-			return this.compareTo(that) == 0;
+			return
+				this.date.equals(that.date) &&
+				this.stockCode.equals(that.stockCode) &&
+				this.open   == that.open &&
+				this.high   == that.high &&
+				this.low    == that.low &&
+				this.close  == that.close &&
+				this.volume == that.volume;
 		} else {
 			return false;
 		}
