@@ -22,37 +22,31 @@ copy-misc-lib-files:
 build-misc-lib:
 	pushd ../misc-lib/; ant build ; popd; make copy-misc-lib-files
 
+delete-save:
+	find tmp/save -mtime 7 -delete
 
 #
 # stock.csv
 #
 update-stock:
-ifneq (,$(wildcard tmp/data/stock.csv))
-	rm -f tmp/data/stock-OLD.csv
-	cp -p tmp/data/stock.csv     tmp/data/stock-OLD.csv
-endif
 	ant update-stock
-
+	cp -p tmp/data/stock.csv     tmp/save/stock_$$(date +%Y%m%d).csv
+	cp -p tmp/data/symbols.csv   tmp/save/symbols_$$(date +%Y%m%d).csv
 
 #
 # price
 #
 update-price:
-ifneq (,$(wildcard tmp/data/price))
-	rm -rf tmp/data/price-OLD.csv
-	cp -rp tmp/data/price        tmp/data/price-OLD
-endif
 	ant update-price
+	cp -p tmp/data/previous.csv  tmp/save/previous_$$(date +%Y%m%d).csv
+	tar cfz tmp/save/price_$$(date +%Y%m%d).taz tmp/data/price
 
 
 #
 # sats-us.csv
 #
 update-stats-us:
-ifneq (,$(wildcard tmp/data/stats-us.csv))
-	rm -f tmp/data/stats-us-OLD.csv
-	cp -p tmp/data/stats-us.csv     tmp/data/stats-us-OLD.csv
-endif
 	ant update-stats-us
-	cp tmp/data/stats-us.csv ~/Dropbox/Trade/stats-us.csv
+	cp -p tmp/data/stats-us.csv  tmp/save/stats-us_$$(date +%Y%m%d).csv
+	cp -p tmp/data/stats-us.csv  ~/Dropbox/Trade/stats-us.csv
 
