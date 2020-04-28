@@ -8,7 +8,7 @@ import javax.json.JsonObject;
 import yokwe.security.usa.iex.Context;
 import yokwe.security.usa.iex.Format;
 import yokwe.util.CSVUtil;
-import yokwe.util.HttpUtil;
+import yokwe.util.http.HttpUtil;
 import yokwe.util.json.JSONBase;
 
 public class Symbols extends JSONBase implements Comparable<Symbols> {

@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.json.JsonObject;
 
 import yokwe.security.usa.iex.Context;
-import yokwe.util.HttpUtil;
+import yokwe.util.http.HttpUtil;
 import yokwe.util.json.JSONBase;
 
 public class Usage extends JSONBase {

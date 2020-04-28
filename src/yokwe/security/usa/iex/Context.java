@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import yokwe.UnexpectedException;
 import yokwe.util.FileUtil;
-import yokwe.util.HttpUtil;
 import yokwe.util.StringUtil;
+import yokwe.util.http.HttpUtil;
 import yokwe.util.json.JSONBase;
 
 public class Context extends JSONBase {

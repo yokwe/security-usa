@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import yokwe.UnexpectedException;
 import yokwe.security.usa.iex.Context;
 import yokwe.security.usa.iex.Format;
-import yokwe.util.HttpUtil;
 import yokwe.util.StringUtil;
+import yokwe.util.http.HttpUtil;
 import yokwe.util.json.JSONBase;
 
 public class Previous extends JSONBase implements Comparable<Previous> {	
