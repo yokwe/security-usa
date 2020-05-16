@@ -72,7 +72,12 @@ public class UpdateStatsUS {
 			if (RSI.DEFAULT_PERIDO <= pricec) {
 				RSI rsi = new RSI();
 				Arrays.stream(closeArray).forEach(rsi);
-				statsUS.rsi = DoubleUtil.round(rsi.getValue(), 1);
+				double rsiValue = rsi.getValue();
+				if (Double.isFinite(rsiValue)) {
+					statsUS.rsi = DoubleUtil.round(rsi.getValue(), 1);
+				} else {
+					statsUS.rsi = -1;
+				}
 			} else {
 				statsUS.rsi = -1;
 			}
