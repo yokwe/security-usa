@@ -141,10 +141,10 @@ public class UpdatePrice {
 		update(context);
 		logger.info("massage used  {}", context.tokenUsedTotal);
 
-		{
-			Metadata metadata = Metadata.getInstance(context);
-			logger.info("message usage {} / {}  {}%", metadata.messagesUsed, metadata.messageLimit, Math.round(((double)metadata.messagesUsed *100) / (double)metadata.messageLimit));
-		}
+//		{
+//			Metadata metadata = Metadata.getInstance(context);
+//			logger.info("message usage {} / {}  {}%", metadata.messagesUsed, metadata.messageLimit, Math.round(((double)metadata.messagesUsed *100) / (double)metadata.messageLimit));
+//		}
 		
 		logger.info("STOP");		
 	}
