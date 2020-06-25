@@ -2,15 +2,15 @@ package yokwe.security.usa.iex.data;
 
 import java.time.LocalDateTime;
 
-import javax.json.JsonObject;
-
 import yokwe.security.usa.iex.Context;
+import yokwe.util.StringUtil;
 import yokwe.util.StringUtil.TimeZone;
 import yokwe.util.StringUtil.UseTimeZone;
 import yokwe.util.http.HttpUtil;
-import yokwe.util.json.JSONBase;
+import yokwe.util.json.JSON;
 
-public class Metadata extends JSONBase {
+
+public class Metadata {
 	public static final int    DATA_WEIGHT = 0; // FREE
 	public static final String METHOD      = "account/metadata";
 
@@ -34,14 +34,15 @@ public class Metadata extends JSONBase {
 		circuitBreaker       = 0;
 	}
 
-	public Metadata(JsonObject jsonObject) {
-		super(jsonObject);
+	@Override
+	public String toString() {
+		return StringUtil.toString(this);
 	}
 
 	public static Metadata getInstance(Context context) {
 		String url = context.getURL(METHOD);
 		HttpUtil.Result result = HttpUtil.getInstance().download(url);
 		context.setTokenUsed(result, DATA_WEIGHT);
-		return JSONBase.getInstance(Metadata.class, result.result);
+		return JSON.unmarshal(Metadata.class, result.result);
 	}
 }

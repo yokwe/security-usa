@@ -2,13 +2,12 @@ package yokwe.security.usa.iex.data;
 
 import java.util.Map;
 
-import javax.json.JsonObject;
-
 import yokwe.security.usa.iex.Context;
+import yokwe.util.StringUtil;
 import yokwe.util.http.HttpUtil;
-import yokwe.util.json.JSONBase;
+import yokwe.util.json.JSON;
 
-public class Usage extends JSONBase {
+public class Usage {
 	public static final int    DATA_WEIGHT = 0; // FREE
 	public static final String METHOD      = "account/usage";
 	
@@ -39,7 +38,7 @@ public class Usage extends JSONBase {
 //	    "rules": []
 //	}
 	
-	public static class Messages extends JSONBase {
+	public static class Messages {
 		public Map<String, Long> dailyUsage;
 		public long              monthlyUsage;
 		public long              monthlyPayAsYouGo;
@@ -53,17 +52,10 @@ public class Usage extends JSONBase {
 			tokenUsage        = null;
 			keyUsage          = null;
 		}
-		
-		public Messages(JsonObject jsonObject) {
-			super(jsonObject);
-		}
 	}
 	
-	public static class Rule extends JSONBase {
+	public static class Rule {
 		public Rule() {
-		}
-		public Rule(JsonObject jsonObject) {
-			super(jsonObject);
 		}
 	}
 	
@@ -74,14 +66,16 @@ public class Usage extends JSONBase {
 		messages = null;
 		rules    = null;
 	}
-	public Usage(JsonObject jsonObject) {
-		super(jsonObject);
-	}
 	
+	@Override
+	public String toString() {
+		return StringUtil.toString(this);
+	}
+
 	public static Usage getInstance(Context context) {
 		String url = context.getURL(METHOD);
 		HttpUtil.Result result = HttpUtil.getInstance().download(url);
 		context.setTokenUsed(result, DATA_WEIGHT);
-		return JSONBase.getInstance(Usage.class, result.result);
+		return JSON.unmarshal(Usage.class, result.result);
 	}
 }

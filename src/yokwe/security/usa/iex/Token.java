@@ -4,17 +4,15 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.json.JsonObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import yokwe.UnexpectedException;
 import yokwe.util.FileUtil;
-import yokwe.util.json.JSONBase;
+import yokwe.util.json.JSON;
 
 
-public class Token extends JSONBase {
+public class Token {
 	static final Logger logger = LoggerFactory.getLogger(Token.class);
 
 	public static final String PATH_DATA_DIR = "tmp/iex/token";
@@ -33,11 +31,11 @@ public class Token extends JSONBase {
 			throw new UnexpectedException("Cannot read file");
 		}
 		String jsonString = FileUtil.read().file(file);
-		return JSONBase.getInstance(Token.class, jsonString);
+		return JSON.unmarshal(Token.class, jsonString);
 	}
 	public static void save(String name, Token token) {
 		File file = new File(getPath(name));
-		String jsonString = token.toJSONString();
+		String jsonString = JSON.toJSONString(token);
 		FileUtil.write().file(file, jsonString);
 	}
 
@@ -64,9 +62,6 @@ public class Token extends JSONBase {
 	public Token() {
 		this(null, null);
 	}
-	public Token(JsonObject jsonObject) {
-		super(jsonObject);
-	}
 
 	@Override
 	public String toString() {
@@ -82,7 +77,6 @@ public class Token extends JSONBase {
 //		}
 //		{
 //			Token token = new Token("Tpk_dbb6f1de7eff420da948e909329d748f", "Tsk_4eda401a15b642b9bba7fb855c9d3318");
-//			writeFile(NAME_SANDBOX, token);
 //		}
 		
 		{

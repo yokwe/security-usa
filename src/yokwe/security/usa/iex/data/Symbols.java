@@ -3,15 +3,13 @@ package yokwe.security.usa.iex.data;
 import java.io.StringReader;
 import java.util.List;
 
-import javax.json.JsonObject;
-
 import yokwe.security.usa.iex.Context;
 import yokwe.security.usa.iex.Format;
 import yokwe.util.CSVUtil;
+import yokwe.util.StringUtil;
 import yokwe.util.http.HttpUtil;
-import yokwe.util.json.JSONBase;
 
-public class Symbols extends JSONBase implements Comparable<Symbols> {
+public class Symbols implements Comparable<Symbols> {
 	public static final int    DATA_WEIGHT = 100; // 100 per call
 
 	// symbol,exchange,name,date,type,iexId,region,currency,isEnabled
@@ -41,13 +39,14 @@ public class Symbols extends JSONBase implements Comparable<Symbols> {
 		cik       = null;
 	}
 	
-	public Symbols(JsonObject jsonObject) {
-		super(jsonObject);
-	}
-
 	@Override
 	public int compareTo(Symbols that) {
 		return this.symbol.compareTo(that.symbol);
+	}
+
+	@Override
+	public String toString() {
+		return StringUtil.toString(this);
 	}
 
 	public static final String METHOD = "ref-data/symbols";

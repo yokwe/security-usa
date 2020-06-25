@@ -4,17 +4,16 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.json.JsonObject;
-
 import org.slf4j.LoggerFactory;
 
 import yokwe.UnexpectedException;
 import yokwe.util.FileUtil;
 import yokwe.util.StringUtil;
 import yokwe.util.http.HttpUtil;
-import yokwe.util.json.JSONBase;
+import yokwe.util.json.JSON;
+import yokwe.util.json.JSON.Ignore;
 
-public class Context extends JSONBase {
+public class Context {
 	static final org.slf4j.Logger logger = LoggerFactory.getLogger(Context.class);
 	
 	public static final String PATH_DATA_DIR = "tmp/iex/context";
@@ -57,23 +56,25 @@ public class Context extends JSONBase {
 			throw new UnexpectedException("Cannot read file");
 		}
 		String jsonString = FileUtil.read().file(file);
-		return JSONBase.getInstance(Context.class, jsonString);
+		Context ret = JSON.unmarshal(Context.class, jsonString);
+		ret.token = Token.get(ret.type);
+		return ret;
 	}
 	public static void save(Context context) {
 		String path = String.format("%s/%s", PATH_DATA_DIR, context.name);
 		File file = new File(path);
-		String jsonString = context.toJSONString();
+		String jsonString = JSON.toJSONString(context);
 		FileUtil.write().file(file, jsonString);
 	}
 	
 	public String  name;
 	public Version version;
 	public Type    type;
-	@IgnoreField
+	@Ignore
 	public Token   token;
-	@IgnoreField
+	@Ignore
 	public int     tokenUsed;
-	@IgnoreField
+	@Ignore
 	public int     tokenUsedTotal;
 	
 	public Context() {
@@ -93,15 +94,10 @@ public class Context extends JSONBase {
 		this.tokenUsedTotal = 0;
 	}
 	
-	public Context(JsonObject jsonObject) {
-		super(jsonObject);
-		token = Token.get(type);
-	}
-	
 	@Override
 	public String toString() {
-//		return String.format("{%s %s %s %s %d %d}", name, version.toString(), type.toString(), token, tokenUsed, tokenUsedTotal);
-		return String.format("{%s %s %s}", name, version.toString(), type.toString());
+		return StringUtil.toString(this);
+//		return String.format("{%s %s %s}", name, version.toString(), type.toString());
 	}
 	
 	//

@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import javax.json.JsonObject;
-
 import org.slf4j.LoggerFactory;
 
 import yokwe.UnexpectedException;
@@ -15,9 +13,9 @@ import yokwe.security.usa.iex.Context;
 import yokwe.security.usa.iex.Format;
 import yokwe.util.StringUtil;
 import yokwe.util.http.HttpUtil;
-import yokwe.util.json.JSONBase;
+import yokwe.util.json.JSON;
 
-public class Previous extends JSONBase implements Comparable<Previous> {	
+public class Previous implements Comparable<Previous> {	
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Previous.class);
 
 	public static final int    DATA_WEIGHT = 2; // 2 per return records
@@ -77,22 +75,23 @@ public class Previous extends JSONBase implements Comparable<Previous> {
 		symbol         = null;
 	}
 	
-	public Previous(JsonObject jsonObject) {
-		super(jsonObject);
-	}
-
 	@Override
 	public int compareTo(Previous that) {
 		return this.symbol.compareTo(that.symbol);
 	}
 	
+	@Override
+	public String toString() {
+		return StringUtil.toString(this);
+	}
+
 	public static final String METHOD      = "stock/%s/previous";
 	public static Previous getInstance(Context context, String symbol) {
 		String url = context.getURL(String.format(METHOD, StringUtil.urlEncode(symbol)));
 		HttpUtil.Result result = HttpUtil.getInstance().download(url);
 		context.setTokenUsed(result, DATA_WEIGHT);
 		logger.info("result {}", result.result);
-		return JSONBase.getInstance(Previous.class, result.result);
+		return JSON.unmarshal(Previous.class, result.result);
 	}
 	
 	public static final int    MAX_PARAM     = 100;
@@ -114,7 +113,7 @@ public class Previous extends JSONBase implements Comparable<Previous> {
 		
 		String url  = context.getURL(METHOD_MARKET, Format.JSON, paramMap);
 		HttpUtil.Result result = HttpUtil.getInstance().download(url);
-		List<Previous> ret = JSONBase.getList(Previous.class, result.result);
+		List<Previous> ret = JSON.getList(Previous.class, result.result);
 		
 		context.setTokenUsed(result, DATA_WEIGHT * ret.size());
 		return ret;
