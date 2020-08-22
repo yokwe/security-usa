@@ -28,6 +28,12 @@ public class UpdateStock {
 		for(Symbols symbols: symbolsList) {
 			if (!symbols.isEnabled) continue;
 			
+			// Handle special case
+			if (symbols.type.equals("")) {
+				symbols.type = "temp";
+				logger.warn("type is empy. treat as temp. !{}!{}!", symbols.date, symbols.symbol);
+			}
+
 			// String date, String stockCode, String exchange, String type, String name
 			Stock stock = new Stock(symbols.date, symbols.symbol, symbols.exchange, symbols.type, symbols.name);
 			if (!stock.isOridinary()) continue;
