@@ -1,5 +1,6 @@
 package yokwe.security.usa.iex.data;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -38,41 +39,89 @@ public class Previous implements Comparable<Previous> {
 //	    "symbol": "TRTN"
 //	}
 	
-//	date,open,close,high,low,volume,uOpen,uClose,uHigh,uLow,uVolume,change,changePercent,changeOverTime,symbol
-//	2019-07-05,32.72,33.01,33.15,32.62,223015,32.72,33.01,33.15,32.62,223015,0,0,0,TRTN	
+//	{
+//		"close":125.85,
+//		"high":126.4,
+//		"low":124.97,
+//		"open":125.59,
+//		"symbol":"IBM",
+//		"volume":7552845,
+//		"id":"HISTORICAL_PRICES",
+//		"key":"IBM",
+//		"subkey":"",
+//		"date":"2020-12-18",
+//		"updated":1608344177000,
+//		"changeOverTime":0,
+//		"marketChangeOverTime":0,
+//		"uOpen":125.59,
+//		"uClose":125.85,
+//		"uHigh":126.4,
+//		"uLow":124.97,
+//		"uVolume":7552845,
+//		"fOpen":125.59,
+//		"fClose":125.85,
+//		"fHigh":126.4,
+//		"fLow":124.97,
+//		"fVolume":7552845,
+//		"label":"Dec 18, 20",
+//		"change":0,
+//		"changePercent":0
+//	}
 	
-	public String date;
-	public double open;
-	public double close;
-	public double high;
-	public double low;
-	public long   volume;
-	public double uOpen;
-	public double uClose;
-	public double uHigh;
-	public double uLow;
-	public long   uVolume;
-	public double change;
-	public double changePercent;
-	public double changeOverTime;
-	public String symbol;
+	public double        close;
+	public double        high;
+	public double        low;
+	public double        open;
+	public String        symbol;
+	public long          volume;
+	public String        id;
+	public String        key;
+	public String        subkey;
+	public String        date;
+	public LocalDateTime updated;
+	public double        changeOverTime;
+	public double        marketChangeOverTime;
+	public double        uOpen;
+	public double        uClose;
+	public double        uHigh;
+	public double        uLow;
+	public long          uVolume;
+	public double        fOpen;
+	public double        fClose;
+	public double        fHigh;
+	public double        fLow;
+	public long          fVolume;
+	public String        label;
+	public double        change;
+	public double        changePercent;
 	
 	public Previous() {
-		date           = null;
-		open           = 0;
-		close          = 0;
-		high           = 0;
-		low            = 0;
-		volume         = 0;
-		uOpen          = 0;
-		uClose         = 0;
-		uHigh          = 0;
-		uLow           = 0;
-		uVolume        = 0;
-		change         = 0;
-		changePercent  = 0;
-		changeOverTime = 0;
-		symbol         = null;
+		close                = 0;
+		high                 = 0;
+		low                  = 0;
+		open                 = 0;
+		symbol               = null;
+		volume               = 0;
+		id                   = null;
+		key                  = null;
+		subkey               = null;
+		date                 = null;
+		updated              = null;
+		changeOverTime       = 0;
+		marketChangeOverTime = 0;
+		uOpen                = 0;
+		uClose               = 0;
+		uHigh                = 0;
+		uLow                 = 0;
+		uVolume              = 0;
+		fOpen                = 0;
+		fClose               = 0;
+		fHigh                = 0;
+		fLow                 = 0;
+		fVolume              = 0;
+		label                = null;
+		change               = 0;
+		changePercent        = 0;
 	}
 	
 	@Override
