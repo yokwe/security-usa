@@ -78,11 +78,12 @@ public class Stock implements Comparable<Stock> {
 	}
 
 	public enum Exchange {
-	   ASE,     // NYSE American
-	   BATS,    // Cboe BZX US Equities Exchange
 	   NAS,     // NASDAQ
 	   NYS,     // New York Stock Exchange
-	   PSE,     // NYSE Arca
+	   POR,     // PORTAL
+	   USAMEX,  // NYSE MKT LLC
+	   USBATS,  // CBOE BZX U.S. EQUITIES EXCHANGE
+	   USPAC,   // NYSE ARCA
 	}
 
 	public String   date;

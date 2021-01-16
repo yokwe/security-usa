@@ -12,9 +12,11 @@ import yokwe.util.http.HttpUtil;
 public class Symbols implements Comparable<Symbols> {
 	public static final int    DATA_WEIGHT = 100; // 100 per call
 
-	// symbol,exchange,name,date,type,iexId,region,currency,isEnabled
+	// symbol,exchange,exchangeSuffix,exchangeName,name,date,type,iexId,region,currency,isEnabled,figi,cik.lei
 	public String  symbol;
 	public String  exchange;
+	public String  exchangeSuffix;
+	public String  exchangeName;
 	public String  name;
 	public String  date;
 	public String  type;
@@ -24,19 +26,23 @@ public class Symbols implements Comparable<Symbols> {
 	public boolean isEnabled;
 	public String  figi;
 	public String  cik;
+	public String  lei;
 
 	public Symbols() {
-		symbol    = null;
-		exchange  = null;
-		name      = null;
-		date      = null;
-		type      = null;
-		iexId     = null;
-		region    = null;
-		currency  = null;
-		isEnabled = false;
-		figi      = null;
-		cik       = null;
+		symbol         = null;
+		exchange       = null;
+		exchangeSuffix = null;
+		exchangeName   = null;
+		name           = null;
+		date           = null;
+		type           = null;
+		iexId          = null;
+		region         = null;
+		currency       = null;
+		isEnabled      = false;
+		figi           = null;
+		cik            = null;
+		lei            = null;
 	}
 	
 	@Override
