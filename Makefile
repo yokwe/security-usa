@@ -23,7 +23,7 @@ build-misc-lib:
 	pushd ../misc-lib/; ant build ; popd; make copy-misc-lib-files
 
 delete-save:
-	find tmp/save -mtime 7 -delete
+	find tmp/save -mtime +30 -delete
 
 #
 # stock.csv
