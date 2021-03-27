@@ -60,11 +60,13 @@ public class Stock implements Comparable<Stock> {
 		CEF("cef"),    // Closed End Fund
 		COM("cs"),     // Common Share
 		ETF("et"),     // ETF
+		OEF("oef"),    // Open Ended Fund
 		PRF("ps"),     // Preferred Share
 		RGT("rt"),     // Right
 		STR("struct"), // Structure
 		TMP("temp"),   // ??
 		UNT("ut"),     // Unit
+		WHI("wi"),     // When Issued
 		WRT("wt");     // Warrant
 		
 		public final String value;
@@ -157,8 +159,10 @@ public class Stock implements Comparable<Stock> {
 		case CEF:
 		case COM:
 		case ETF:
+		case OEF:
 		case PRF:
 		case STR:
+		case WHI:
 		case TMP: // FIXME
 			return true;
 		case RGT:
